@@ -9,11 +9,9 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Teacher {
+public class Manager {
 
-    private Integer id;
-    private String tAccount;
-    private String tName;
-    private String scId;
+    private Integer mId;
+    private String mAccount;
 
 }

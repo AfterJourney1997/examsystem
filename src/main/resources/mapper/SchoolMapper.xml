@@ -31,4 +31,9 @@
     select id, sc_id, sc_name
     from exam.school
   </select>
+  <select id="selectById" resultMap="BaseResultMap">
+    select id, sc_id, sc_name
+    from exam.school
+    where sc_id = #{schoolId, jdbcType=VARCHAR}
+  </select>
 </mapper>

@@ -9,11 +9,11 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Teacher {
+public class Student {
 
-    private Integer id;
-    private String tAccount;
-    private String tName;
+    private Integer sId;
+    private String sAccount;
+    private String sName;
     private String scId;
 
 }

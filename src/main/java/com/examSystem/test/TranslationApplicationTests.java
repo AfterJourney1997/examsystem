@@ -10,8 +10,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:applicationContext.xml")
@@ -23,22 +21,8 @@ import java.util.List;
 //------------
 public class TranslationApplicationTests {
 
-    @Autowired
-    private LoginMapper loginMapper;
-    @Autowired
-    private LoginService loginService;
-
     @Test
     public void contextLoads() {
-
-        Login login = new Login();
-        login.setAccount("student");
-        login.setPassword("1234");
-        login.setIdentity(1);
-
-        Login user = loginService.checkLogin(login);
-        System.out.println(user);
-
     }
 
 }

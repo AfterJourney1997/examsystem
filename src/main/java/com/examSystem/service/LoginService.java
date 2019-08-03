@@ -1,7 +1,11 @@
 package com.examSystem.service;
 
 import com.examSystem.dao.LoginMapper;
+import com.examSystem.dao.ManagerMapper;
+import com.examSystem.dao.StudentMapper;
+import com.examSystem.dao.TeacherMapper;
 import com.examSystem.entity.Login;
+import com.examSystem.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,18 +15,26 @@ import java.util.Optional;
 @Service
 public class LoginService {
 
-    @Autowired
-    private LoginMapper loginMapper;
+    private final LoginMapper loginMapper;
+    private final StudentMapper studentMapper;
+    private final TeacherMapper teacherMapper;
+    private final ManagerMapper managerMapper;
 
-    public Login checkLogin(Login login){
+    @Autowired
+    public LoginService(LoginMapper loginMapper, StudentMapper studentMapper, TeacherMapper teacherMapper, ManagerMapper managerMapper) {
+        this.loginMapper = loginMapper;
+        this.studentMapper = studentMapper;
+        this.teacherMapper = teacherMapper;
+        this.managerMapper = managerMapper;
+    }
+
+    public Optional<Login> checkLogin(Login login){
 
         List<Login> logins = loginMapper.selectByIdentity(login.getIdentity());
 
-        Optional<Login> user = logins.stream()
+        return logins.stream()
                 .filter((e) -> login.getAccount().equals(e.getAccount()) && login.getPassword().equals(e.getPassword()))
                 .findFirst();
-
-        return user.orElse(null);
 
     }
 
