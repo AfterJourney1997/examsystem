@@ -1,15 +1,18 @@
-package com.examSystem;
+package com.examSystem.test;
 
 import com.examSystem.dao.LoginMapper;
 import com.examSystem.entity.Login;
+import com.examSystem.service.LoginService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:applicationContext.xml")
 //------------如果加入以下代码，所有继承该类的测试类都会遵循该配置，也可以不加，在测试类的方法上///控制事务，参见下一个实例
@@ -20,7 +23,22 @@ import java.util.List;
 //------------
 public class TranslationApplicationTests {
 
+    @Autowired
+    private LoginMapper loginMapper;
+    @Autowired
+    private LoginService loginService;
+
     @Test
     public void contextLoads() {
+
+        Login login = new Login();
+        login.setAccount("student");
+        login.setPassword("1234");
+        login.setIdentity(1);
+
+        Login user = loginService.checkLogin(login);
+        System.out.println(user);
+
     }
+
 }
