@@ -61,6 +61,8 @@
         <!--<table tableName="t_black_list" domainObjectName="BlackList"></table>-->
         <!--<table tableName="t_interaction_plugin" domainObjectName="InteractionPlugin"></table>-->
         <!--<table tableName="t_wholeplugin" domainObjectName="WholePlugin"></table>-->
-        <table catalog="exam" tableName="answer" domainObjectName="Answer"></table>
+        <table catalog="exam" tableName="shortanswer" domainObjectName="ShortAnswer"></table>
+        <table catalog="exam" tableName="truefalse" domainObjectName="TrueFalse"></table>
+        <table catalog="exam" tableName="choice" domainObjectName="Choice"></table>
     </context>
 </generatorConfiguration>

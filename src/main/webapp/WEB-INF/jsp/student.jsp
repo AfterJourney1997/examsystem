@@ -11,7 +11,7 @@
     <p><%=session.getAttribute("school") %></p>
     <p><%=request.getAttribute("exam") %></p>
     <p><%=request.getAttribute("result") %></p>
-    <a href="<%=request.getContextPath() %>/student/exam">
+    <a href="<%=request.getContextPath() %>/student/examInfo">
         <button>考试查询</button>
     </a><br>
     <a href="<%=request.getContextPath() %>/student/result">

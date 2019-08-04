@@ -17,7 +17,11 @@ public class ArrangeService {
         this.arrangeMapper = arrangeMapper;
     }
 
-    public List<Arrange> getArrangeBySchool(String schoolId){
+    public List<Arrange> getArrangeBySchool(String schoolId) {
         return arrangeMapper.selectBySchoolId(schoolId);
+    }
+
+    public Arrange getArrange(int arrId) {
+        return arrangeMapper.selectByPrimaryKey(arrId);
     }
 }

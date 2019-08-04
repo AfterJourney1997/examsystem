@@ -22,4 +22,8 @@ public class AnswerService {
     public List<Result> getStudentResult(String sAccount){
         return answerMapper.selectResult(sAccount);
     }
+
+    public void insertAnswer(Answer answer){
+        answerMapper.insert(answer);
+    }
 }

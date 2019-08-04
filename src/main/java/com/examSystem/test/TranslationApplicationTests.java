@@ -1,11 +1,7 @@
 package com.examSystem.test;
 
-import com.examSystem.dao.LoginMapper;
-import com.examSystem.entity.Login;
-import com.examSystem.service.LoginService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
