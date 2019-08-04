@@ -21,4 +21,5 @@ public interface ArrangeMapper {
     int updateByPrimaryKey(Arrange record);
 
     List<Arrange> selectBySchoolId(@Param("schoolId") String schoolId);
+
 }

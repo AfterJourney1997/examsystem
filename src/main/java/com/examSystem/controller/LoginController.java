@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @Slf4j
 @Controller
-@SessionAttributes(value = {"user", "school"})
+@SessionAttributes(value = {"user", "school", "identity"})
 public class LoginController {
 
     private final LoginService loginService;
@@ -62,6 +62,7 @@ public class LoginController {
         if(identity == 1){
             Student student = studentService.getStudentByAccount(checkLogin.get().getAccount());
             School school = schoolService.getSchoolById(student.getScId());
+            model.addAttribute("identity", 1);
             model.addAttribute("user", student);
             model.addAttribute("school", school);
             log.info("学生登录：{}",student);
@@ -71,6 +72,7 @@ public class LoginController {
         if(identity == 2){
             Teacher teacher = teacherService.getTeacherByAccount(checkLogin.get().getAccount());
             School school = schoolService.getSchoolById(teacher.getScId());
+            model.addAttribute("identity", 2);
             model.addAttribute("user", teacher);
             model.addAttribute("school", school);
             log.info("教师登录：{}",teacher);
@@ -79,6 +81,7 @@ public class LoginController {
 
         if(identity == 3){
             Manager manager = managerService.getManagerByAccount(checkLogin.get().getAccount());
+            model.addAttribute("identity", 3);
             model.addAttribute("user", manager);
             log.info("管理员登录：{}",manager);
             return new ModelAndView("manager");

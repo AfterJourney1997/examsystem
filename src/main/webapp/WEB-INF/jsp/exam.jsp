@@ -7,6 +7,7 @@
     <title>省级初中信息技术结业在线考试系统 - 考试</title>
 </head>
 <body>
+    <p><%=session.getAttribute("examInfo") %></p>
     <p><%=request.getAttribute("choice") %></p>
     <p><%=request.getAttribute("trueFalse") %></p>
     <p><%=request.getAttribute("shortAnswer") %></p>

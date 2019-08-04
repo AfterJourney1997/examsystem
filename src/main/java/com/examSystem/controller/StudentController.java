@@ -18,7 +18,7 @@ import java.util.List;
 @Slf4j
 @Controller
 @RequestMapping("/student")
-@SessionAttributes(value = {"exam"})
+@SessionAttributes(value = {"examInfo"})
 public class StudentController {
 
     private final HttpServletRequest request;
@@ -77,6 +77,7 @@ public class StudentController {
 
         Arrange arrange = arrangeService.getArrange(arrId);
         Test test = testService.getTest(testId);
+        log.info("考试信息：{}", arrange);
         // 获取选择题、判断题、简答题id
         String[] choices = test.getCqId().split("/");
         String[] trueFalses = test.getTfqId().split("/");
@@ -86,7 +87,7 @@ public class StudentController {
         List<TrueFalse> trueFalseList = trueFalseService.getTrueFalseList(trueFalses);
         List<ShortAnswer> shortAnswerList = shortAnswerService.getShortAnswerList(shortAnswers);
 
-        model.addAttribute("exam", arrange);
+        model.addAttribute("examInfo", arrange);
         model.addAttribute("choice", choiceList);
         model.addAttribute("trueFalse", trueFalseList);
         model.addAttribute("shortAnswer", shortAnswerList);
@@ -95,7 +96,7 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
-    public ModelAndView submitExam(int arrId, String[] choiceList, String[] trueFalseList, String[] shortAnswerList) {
+    public ModelAndView submitExam(String[] choiceList, String[] trueFalseList, String[] shortAnswerList) {
 
         // 获取session中的用户值
         Object user = request.getSession().getAttribute("user");
