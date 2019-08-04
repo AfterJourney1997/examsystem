@@ -9,5 +9,13 @@
     <h1>hello student！</h1>
     <p><%=session.getAttribute("user") %></p>
     <p><%=session.getAttribute("school") %></p>
+    <p><%=request.getAttribute("exam") %></p>
+    <p><%=request.getAttribute("result") %></p>
+    <a href="<%=request.getContextPath() %>/student/exam">
+        <button>考试查询</button>
+    </a><br>
+    <a href="<%=request.getContextPath() %>/student/result">
+        <button>成绩查询</button>
+    </a><br>
 </body>
 </html>

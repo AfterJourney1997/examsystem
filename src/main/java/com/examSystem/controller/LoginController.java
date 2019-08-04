@@ -1,5 +1,6 @@
 package com.examSystem.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.examSystem.entity.*;
 import com.examSystem.service.*;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +39,12 @@ public class LoginController {
 
         log.info("用户登录，账号：" + username + "，密码：" +password + "，身份：" + identity);
 
+        if(StrUtil.isEmpty(username) || StrUtil.isEmpty(password)){
+            model.addAttribute("info", "账号或密码不能为空");
+            log.info("登录账号密码为空");
+            return new ModelAndView("login");
+        }
+
         Login login = new Login();
         login.setIdentity(identity);
         login.setAccount(username);
@@ -48,6 +55,7 @@ public class LoginController {
         // 账号或密码错误
         if(!checkLogin.isPresent()){
             model.addAttribute("info", "账号或密码错误！");
+            log.info("登录账号密码错误");
             return new ModelAndView("login");
         }
 
