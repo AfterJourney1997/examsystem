@@ -91,10 +91,20 @@
         </td>
         <td align="center">
             <br>
-            <form>
-
-            </form>
-
+            <table border="1">
+    <tr>
+        <td>编号</td><td>学号</td><td>姓名</td><td>学校</td><td>管理</td>
+    </tr>
+    <c:forEach var="student" items="${stu}" varStatus="status">
+    <tr>
+        <td>${status.count}</td>
+        <td>${student.SAccount}</td>
+        <td>${student.SName}</td>
+        <td><%=school2.getScName()%></td>
+        <td><a href="/examsystem/delstudent?sId=${student.SAccount}&scid=<%=school2.getScId()%>">删除</a></td>
+    </tr>
+    </c:forEach>
+            </table>
         </td>
     </tr>
 </table>

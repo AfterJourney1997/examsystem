@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.examSystem.entity.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.examSystem.entity.*"%>
+<% School school=(School) session.getAttribute("school");%>
 <% Teacher teacher=(Teacher) session.getAttribute("user");%>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
     <style>
         *{
             margin:0;
@@ -55,7 +56,7 @@
             border-bottom:1px solid #fff;
         }
     </style>
-    <title>TeacherHome</title>
+    <title>AddStudent</title>
 </head>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script>
@@ -90,11 +91,16 @@
             <%@include file="teacherleft.jspf" %>
         </td>
         <td align="center">
+     <c:if test="${!empty model}">
+    <div style="text-align: center;">${model}</div>
+     </c:if>
             <br>
-            <form>
-
+            <form action="/examsystem/addstudent" method="post">
+                学生学号<input type="text" name="sAccount"><br>
+                学生姓名<input type="text" name="sName"><br>
+                所属学校<input type="text" name="scId" readonly="readonly" value="<%=school.getScId()%>"><br>
+                <input type="submit" value="添加"/>
             </form>
-
         </td>
     </tr>
 </table>

@@ -12,6 +12,10 @@
     delete from exam.login
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <delete id="delBysAccount" parameterType="java.lang.String">
+    delete from exam.login
+    where account= #{Account,jdbcType=INTEGER}
+  </delete>
   <insert id="insert" parameterType="com.examSystem.entity.Login">
     insert into exam.login (id, identity, account, 
       password, content)

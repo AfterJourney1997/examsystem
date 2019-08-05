@@ -26,4 +26,8 @@ public class AnswerService {
     public void insertAnswer(Answer answer){
         answerMapper.insert(answer);
     }
+    public List<Answer> selstudent(String account){
+        return answerMapper.selectBySAccount(account);
+    }
+
 }

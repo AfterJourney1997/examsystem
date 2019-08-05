@@ -13,6 +13,8 @@ public interface LoginMapper {
 
     int deleteByPrimaryKey(Integer id);
 
+    int delBysAccount(String Account);
+
     int insert(Login record);
 
     Login selectByPrimaryKey(Integer id);

@@ -20,6 +20,10 @@
     delete from exam.answer
     where answer_id = #{answerId,jdbcType=INTEGER}
   </delete>
+  <delete id="delBysAccount" parameterType="java.lang.String">
+    delete from exam.answer
+    where s_account = #{Account,jdbcType=INTEGER}
+  </delete>
   <insert id="insert" parameterType="com.examSystem.entity.Answer">
     insert into exam.answer (answer_id, arr_id, test_id, 
       s_account, s_name, cq_answer, 

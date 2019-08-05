@@ -13,6 +13,8 @@ import java.util.List;
 public interface AnswerMapper {
     int deleteByPrimaryKey(Integer answerId);
 
+    int delBysAccount(String Account);
+
     int insert(Answer record);
 
     Answer selectByPrimaryKey(Integer answerId);

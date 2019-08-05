@@ -11,6 +11,10 @@
     delete from exam.student
     where s_id = #{sId,jdbcType=INTEGER}
   </delete>
+  <delete id="delBysAccount" parameterType="java.lang.String">
+    delete from exam.student
+    where s_account= #{sAccount,jdbcType=INTEGER}
+  </delete>
   <insert id="insert" parameterType="com.examSystem.entity.Student">
     insert into exam.student (s_id, s_account, s_name, 
       sc_id)
@@ -37,5 +41,10 @@
     select s_id, s_account, s_name, sc_id
     from exam.student
     where s_account = #{account, jdbcType=VARCHAR}
+  </select>
+  <select id="getAllSchoolStudent" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select *
+    from exam.student
+    where sc_id = #{scId, jdbcType=VARCHAR}
   </select>
 </mapper>

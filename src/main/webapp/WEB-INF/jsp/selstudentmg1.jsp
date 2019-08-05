@@ -91,10 +91,27 @@
         </td>
         <td align="center">
             <br>
-            <form>
-
-            </form>
-
+            <table>
+                <tr>
+                    <form action="/examsystem/selstudent" method="post">
+                        <input type="text" name="sid" placeholder="请输入需要查询的学生学号." />
+                        &emsp;<input type="submit" value="查询"/>
+                    </form>
+                </tr>
+                <br>
+                <tr>
+                    <table border="1">
+                        <tr>
+                            <td>学号</td> <td>姓名</td> <td>成绩</td>
+                        </tr>
+                        <tr>
+                            <td>${stu.SAccount}</td>
+                            <td>${stu.SName}</td>
+                            <td>${ms}</td>
+                        </tr>
+                    </table>
+                </tr>
+            </table>
         </td>
     </tr>
 </table>
