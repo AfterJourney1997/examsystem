@@ -19,6 +19,7 @@ public class LoginService {
     private final StudentMapper studentMapper;
     private final TeacherMapper teacherMapper;
     private final ManagerMapper managerMapper;
+    Login login=new Login();
 
     @Autowired
     public LoginService(LoginMapper loginMapper, StudentMapper studentMapper, TeacherMapper teacherMapper, ManagerMapper managerMapper) {
@@ -36,6 +37,13 @@ public class LoginService {
                 .filter((e) -> login.getAccount().equals(e.getAccount()) && login.getPassword().equals(e.getPassword()))
                 .findFirst();
 
+    }
+    //login表添加学生
+    public int addstudent(Student student){
+        login.setAccount(student.getSAccount());
+        login.setIdentity(1);
+        login.setPassword("1234");
+        return loginMapper.insert(login);
     }
 
 }

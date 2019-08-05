@@ -14,8 +14,8 @@
             <li class="pro">
                 <span class="closed" onclick="toggleTable(this)">试卷管理</span>
                 <ul class="hide">
-                    <li>添加试卷</li>
-                    <li>删除试卷</li>
+                    <li><a href="/examsystem/testadd">添加试卷</a></li>
+                    <li><a href="/examsystem/testdel">删除试卷</a></li>
                     <li>批改试卷</li>
                 </ul>
             </li>

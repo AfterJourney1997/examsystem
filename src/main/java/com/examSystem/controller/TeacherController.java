@@ -1,13 +1,9 @@
 package com.examSystem.controller;
 
 
-import com.examSystem.entity.Answer;
-import com.examSystem.entity.Login;
+import com.examSystem.entity.*;
 import com.examSystem.entity.Student;
-import com.examSystem.entity.Student;
-import com.examSystem.service.AnswerService;
-import com.examSystem.service.StudentService;
-import com.examSystem.service.TeacherService;
+import com.examSystem.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.HttpSessionRequiredException;
@@ -16,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 /**
  * 这里配置默认可以打开的页面
@@ -24,13 +23,21 @@ import java.util.List;
 @Controller
 public class TeacherController {
     @Resource
+    ChoiceService choiceService;
+    @Resource
+    TrueFalseService trueFalseService;
+    @Resource
+    ShortAnswerService shortAnswerService;
+    @Resource
     AnswerService answerService;
     @Resource
     TeacherService ts;
     @Resource
     StudentService studentService;
+    @Resource
+    TestService testService;
     /**
-     * 添加学生页面
+     * 进入添加学生页面
      * @return
      */
     @RequestMapping({"/studentadd"})
@@ -54,6 +61,14 @@ public class TeacherController {
     @RequestMapping({"/studentsel"})
     public String studentsel(){
         return "selstudent";
+    }
+    /**
+     * 打开添加考试页面
+     * @return
+     */
+    @RequestMapping("/testadd")
+    public String testadd(){
+        return "testadd";
     }
     /**
      * 查询学生信息
@@ -101,6 +116,43 @@ public class TeacherController {
         List<Student> stu= studentService.getAllStudentStudent(scid);
         model.addAttribute("stu",stu);
         return "delstudent";
+    }
+    /**
+     * 生成试卷
+     * @return
+     */
+    @RequestMapping("/addtest")
+    public String addtest(Model model,HttpSession session){
+      String Choice=choiceService.addTestChoice();
+      String TrueFalse =trueFalseService.addTestTrueFalse();
+      String Short=shortAnswerService.addTestShort();
+      List<Choice> listChoice=choiceService.makeChoice(Choice);
+      List<TrueFalse> listTrueFalse=trueFalseService.makeTrueFalse(TrueFalse);
+      List<ShortAnswer> listShort=shortAnswerService.makeShortAnswer(Short);
+      session.setAttribute("Choice",Choice);
+      session.setAttribute("TrueFalse",TrueFalse);
+      session.setAttribute("Short",Short);
+      model.addAttribute("listChoice",listChoice);
+      model.addAttribute("listTrueFalse",listTrueFalse);
+      model.addAttribute("listShort",listShort);
+      System.out.println(listShort);
+      System.out.println(listShort.get(0).getSaqContent()+"******"+listShort.get(0).getSaqCorrect());
+        return "addtest";
+    }
+    /**
+     * 添加试卷
+     * @return
+     */
+    @RequestMapping("/inserttest")
+    public String inserttest(String testname,HttpSession session,Model model){
+        String Choice=(String)session.getAttribute("Choice");
+        String TrueFalse=(String)session.getAttribute("TrueFalse");
+        String Short=(String)session.getAttribute("Short");
+        if(testService.inserttest(testname,Choice,TrueFalse,Short)>0)
+        {
+            model.addAttribute("mg","添加试卷成功");
+        }
+        return "testadd";
     }
     /**
      * 打开注册页

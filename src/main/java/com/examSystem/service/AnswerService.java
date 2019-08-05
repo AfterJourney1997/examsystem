@@ -26,8 +26,10 @@ public class AnswerService {
     public void insertAnswer(Answer answer){
         answerMapper.insert(answer);
     }
+    //查询学生信息成绩answer表
     public List<Answer> selstudent(String account){
         return answerMapper.selectBySAccount(account);
     }
+
 
 }
