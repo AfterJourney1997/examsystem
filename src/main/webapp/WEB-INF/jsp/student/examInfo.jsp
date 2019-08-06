@@ -55,10 +55,13 @@
                                 <span class="label label-primary">已结束</span>
                             </c:if>
                             <c:if test="${item.arrStatus == 0}">
-                                <span class="label label-success">未开始</span>
+                                <span class="label label-info">未开始</span>
                             </c:if>
                             <c:if test="${item.arrStatus == 1}">
                                 <span class="label label-warning">进行中</span>
+                            </c:if>
+                            <c:if test="${item.arrStatus == 2}">
+                                <span class="label label-success">已完成</span>
                             </c:if>
                         </td>
                         <td>

@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @Slf4j
 @Controller
@@ -60,12 +61,29 @@ public class StudentController {
         Student student = (Student) user;
 
         List<Arrange> arranges = arrangeService.getArrangeBySchool(student.getScId());
-        log.info("查询考试：{}", arranges);
+        List<Answer> answers = answerService.selstudent(student.getSAccount());
+        List<Arrange> arrangeList = new ArrayList<>();
+
+        // 查询有无该学生已考过的考试
+        CopyOnWriteArrayList<Arrange> tempList = new CopyOnWriteArrayList<>(arranges);
+        for(Answer answer : answers){
+            for(Arrange arrange : tempList){
+                if(arrange.getArrId().equals(answer.getArrId())){
+                    System.err.println(arrange);
+                    tempList.removeIf((e) -> e.getArrId().equals(arrange.getArrId()));
+                    arrange.setArrStatus(2);
+                    arrangeList.add(arrange);
+                }
+            }
+        }
+
+        arrangeList.addAll(tempList);
+        log.info("查询考试：{}", arrangeList);
 
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         model.addAttribute("dateTimeFormatter", dateTimeFormatter);
-        model.addAttribute("exam", arranges);
+        model.addAttribute("exam", arrangeList);
         return new ModelAndView("student/examInfo");
     }
 

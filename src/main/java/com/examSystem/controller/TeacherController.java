@@ -3,6 +3,7 @@ package com.examSystem.controller;
 import com.examSystem.entity.*;
 import com.examSystem.entity.Student;
 import com.examSystem.service.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import java.util.List;
 /**
  * 这里配置默认可以打开的页面
  */
+@Slf4j
 @Controller
 public class TeacherController {
     @Resource
@@ -144,7 +146,7 @@ public class TeacherController {
      */
     @RequestMapping(value = "/selstudent")
     public String selstudent(String sid,Model model,HttpSession session){
-        System.out.println(sid);
+
         List<Answer> stums =answerService.selstudent(sid);
         if(stums.size()<1)
         {
@@ -203,8 +205,8 @@ public class TeacherController {
       model.addAttribute("listChoice",listChoice);
       model.addAttribute("listTrueFalse",listTrueFalse);
       model.addAttribute("listShort",listShort);
-      System.out.println(listShort);
-      System.out.println(listShort.get(0).getSaqContent()+"******"+listShort.get(0).getSaqCorrect());
+
+      log.info("生成试卷：" + listShort.get(0).getSaqContent()+"******"+listShort.get(0).getSaqCorrect());
         return "addtest";
     }
     /**
