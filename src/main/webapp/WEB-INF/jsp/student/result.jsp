@@ -5,29 +5,11 @@
 <head>
     <meta charset="utf-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/body.css" rel="stylesheet" rev="stylesheet" type="text/css" media="all" />
     <link href="${pageContext.request.contextPath}/css/reset.css">
 
     <title>省级初中信息技术结业在线考试系统 - 学生考试信息</title>
 </head>
-<style  type="text/css">
-    body {
-        padding-top: 50px;
-        padding-left: 221px;
-    }
-    .main {
-        padding: 20px;
-    }
-    @media (min-width: 768px) {
-        .main {
-            padding-right: 40px;
-            padding-left: 40px;
-        }
-    }
-    .main {
-        margin-top: 0;
-    }
-
-</style>
 <body>
 <%@include file="../head.jsp"%>
 <%@include file="../leaf.jsp"%>
