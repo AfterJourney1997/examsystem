@@ -135,9 +135,9 @@
 </div>
 <div class="screenbg">
     <ul>
-        <li><a href="javascript:;"><img src="${pageContext.request.contextPath}/images/0.jpg"></a></li>
-        <li><a href="javascript:;"><img src="${pageContext.request.contextPath}/images/1.jpg"></a></li>
-        <li><a href="javascript:;"><img src="${pageContext.request.contextPath}/images/2.jpg"></a></li>
+        <li><a href="javascript:;"><img src="${pageContext.request.contextPath}/images/login.jpg"></a></li>
+        <li><a href="javascript:;"><img src="${pageContext.request.contextPath}/images/login-back2.jpg"></a></li>
+        <li><a href="javascript:;"><img src="${pageContext.request.contextPath}/images/login-back3.jpg"></a></li>
     </ul>
 </div>
 </body>

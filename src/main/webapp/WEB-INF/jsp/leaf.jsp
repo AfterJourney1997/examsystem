@@ -49,7 +49,7 @@
     <c:if test="${sessionScope.identity == 1}">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="#">学生<span class="sr-only">(current)</span></a></li>
+                <li class="active"><a href="${pageContext.request.contextPath}/student">学生<span class="sr-only">(current)</span></a></li>
                 <li><a href="${pageContext.request.contextPath}/student/examInfo">查看考试</a></li>
                 <li><a href="${pageContext.request.contextPath}/student/result">查看成绩</a></li>
             </ul>
@@ -60,7 +60,7 @@
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
                 <li class="active"><a href="#">教师<span class="sr-only">(current)</span></a></li>
-                <li><a href="list.jsp">学生管理</a></li>
+                <li><a href="#">学生管理</a></li>
                 <li><a href="#">题库管理</a></li>
                 <li><a href="#">试卷管理</a></li>
                 <li><a href="#">批改试卷</a></li>
@@ -73,7 +73,7 @@
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
                 <li class="active"><a href="#">管理员<span class="sr-only">(current)</span></a></li>
-                <li><a href="#p">教师管理</a></li>
+                <li><a href="#">教师管理</a></li>
                 <li><a href="#">学校管理</a></li>
             </ul>
         </div>

@@ -125,7 +125,7 @@ public class StudentController {
 
         answerService.insertAnswer(answer);
 
-        return new ModelAndView("finish");
+        return new ModelAndView("student/finish");
     }
 
 }

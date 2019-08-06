@@ -25,7 +25,7 @@
         margin-top: 0;
     }
     .wrap{
-        background:#444 url(${pageContext.request.contextPath}/images/banner.jpg) no-repeat fixed center center;
+        background:#444 url(${pageContext.request.contextPath}/images/home-back.jpg) no-repeat fixed center center;
         background-size: cover;
         overflow: hidden;
         height: 850px;
