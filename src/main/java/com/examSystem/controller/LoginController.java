@@ -66,7 +66,7 @@ public class LoginController {
             model.addAttribute("user", student);
             model.addAttribute("school", school);
             log.info("学生登录：{}",student);
-            return new ModelAndView("student");
+            return new ModelAndView("student/student");
         }
 
         if(identity == 2){

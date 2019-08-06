@@ -20,7 +20,7 @@ public class TimingTaskOperation {
 
         List<Arrange> arranges = pullData();
 
-        if(arranges == null){
+        if(arranges == null || arranges.size() == 0){
             return;
         }
 
@@ -46,6 +46,7 @@ public class TimingTaskOperation {
         }
     }
 
+    // 从库中拉入未结束的考试
     private static List<Arrange> pullData(){
 
         List<Arrange> arranges = ApplicationContextProvider.getBean(ArrangeMapper.class).selectAll();

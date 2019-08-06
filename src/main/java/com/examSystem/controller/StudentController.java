@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Slf4j
@@ -42,6 +43,11 @@ public class StudentController {
         this.shortAnswerService = shortAnswerService;
     }
 
+    @RequestMapping(method = RequestMethod.GET)
+    public String studentHomePage(){
+        return "student/student";
+    }
+
     @RequestMapping(value = "/examInfo", method = RequestMethod.GET)
     public ModelAndView getStudentExam(Model model) {
 
@@ -51,8 +57,12 @@ public class StudentController {
 
         List<Arrange> arranges = arrangeService.getArrangeBySchool(student.getScId());
         log.info("查询考试：{}", arranges);
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        model.addAttribute("dateTimeFormatter", dateTimeFormatter);
         model.addAttribute("exam", arranges);
-        return new ModelAndView("student");
+        return new ModelAndView("student/examInfo");
     }
 
     @RequestMapping(value = "/result", method = RequestMethod.GET)
@@ -65,7 +75,7 @@ public class StudentController {
         List<Result> studentResult = answerService.getStudentResult(student.getSAccount());
         log.info("查询成绩：{}", studentResult);
         model.addAttribute("result", studentResult);
-        return new ModelAndView("student");
+        return new ModelAndView("student/result");
     }
 
     @RequestMapping(value = "/exam", method = RequestMethod.GET)
@@ -92,7 +102,7 @@ public class StudentController {
         model.addAttribute("trueFalse", trueFalseList);
         model.addAttribute("shortAnswer", shortAnswerList);
 
-        return new ModelAndView("exam");
+        return new ModelAndView("student/exam");
     }
 
     @RequestMapping(value = "/submit", method = RequestMethod.POST)

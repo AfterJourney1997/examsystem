@@ -5,9 +5,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>省级初中信息技术结业在线考试系统 - 用户登录</title>
-    <link href="<%=request.getContextPath() %>/css/login.css" rel="stylesheet" rev="stylesheet" type="text/css" media="all" />
-    <script type="text/javascript" src="<%=request.getContextPath() %>/js/jQuery1.7.js"></script>
-    <script type="text/javascript" src="<%=request.getContextPath() %>/js/jquery-1.8.2.min.js"></script>
+    <link href="${pageContext.request.contextPath}/css/login.css" rel="stylesheet" rev="stylesheet" type="text/css" media="all" />
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jQuery1.7.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.8.2.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
             var $tab_li = $('#tab ul li');
@@ -62,7 +62,7 @@
         <!-- 学生登录开始 -->
         <div>
             <div class="stu_error_box"></div>
-            <form action="<%=request.getContextPath() %>/login" method="post" class="stu_login_error">
+            <form action="${pageContext.request.contextPath}/login" method="post" class="stu_login_error">
                 <input type="hidden" name="identity" value="1">
                 <div id="username">
                     <label>学&nbsp;&nbsp;&nbsp;号：</label>
@@ -86,7 +86,7 @@
         <!-- 导师登录开始-->
         <div class="hide">
             <div class="tea_error_box"></div>
-            <form action="<%=request.getContextPath() %>/login" method="post" class="tea_login_error">
+            <form action="${pageContext.request.contextPath}/login" method="post" class="tea_login_error">
                 <input type="hidden" name="identity" value="2">
                 <div id="username">
                     <label>教工号：</label>
@@ -110,7 +110,7 @@
         <!-- 教务登录开始-->
         <div class="hide">
             <div class="sec_error_box"></div>
-            <form action="<%=request.getContextPath() %>/login" method="post" class="sec_login_error">
+            <form action="${pageContext.request.contextPath}/login" method="post" class="sec_login_error">
                 <input type="hidden" name="identity" value="3">
                 <div id="username">
                     <label>教务号：</label>
@@ -135,9 +135,9 @@
 </div>
 <div class="screenbg">
     <ul>
-        <li><a href="javascript:;"><img src="<%=request.getContextPath() %>/images/0.jpg"></a></li>
-        <li><a href="javascript:;"><img src="<%=request.getContextPath() %>/images/1.jpg"></a></li>
-        <li><a href="javascript:;"><img src="<%=request.getContextPath() %>/images/2.jpg"></a></li>
+        <li><a href="javascript:;"><img src="${pageContext.request.contextPath}/images/0.jpg"></a></li>
+        <li><a href="javascript:;"><img src="${pageContext.request.contextPath}/images/1.jpg"></a></li>
+        <li><a href="javascript:;"><img src="${pageContext.request.contextPath}/images/2.jpg"></a></li>
     </ul>
 </div>
 </body>
