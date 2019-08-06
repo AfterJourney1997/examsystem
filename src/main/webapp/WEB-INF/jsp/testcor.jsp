@@ -91,7 +91,8 @@
         </td>
         <td align="center">
             <br>
-            ${mg}
+            ${mg}<br>
+            ${mes}
             <table border="1">
                 <tr>
                     <td>序号</td> <td>考试编号</td> <td>试卷编号</td> <td>学生学号</td> <td>学生姓名</td> <td>操作</td>

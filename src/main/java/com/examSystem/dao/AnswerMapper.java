@@ -17,7 +17,7 @@ public interface AnswerMapper {
 
     int insert(Answer record);
 
-    int insertGrade(int answId,float sum2);
+    int addGrade(@Param("answId") int answId,@Param("Sum") float Sum);
 
     Answer selectByPrimaryKey(Integer answerId);
 

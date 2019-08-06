@@ -76,7 +76,6 @@ public class AnswerService {
      int k=15;
      for (int i=0;i<15;i++)
      {
-         System.out.println(cho[i]+"+++++++"+liChoice.get(i).getCqCorrect());
          if(cho[i].equals(liChoice.get(i).getCqCorrect())){
              sum[i]=2;
          }else{
@@ -95,16 +94,12 @@ public class AnswerService {
         return sum;
     }
     //添加成绩
-    public int addGrade(int answId,int gra1, int gra2,int[] gra3){
-        int Sum=0;
-        Sum=gra1+gra2;
+    public int addGrade(int answId,float Sum,int[] gra3){
         for (int i=0;i<gra3.length;i++)
         {
             Sum+=gra3[i];
         }
-        float sum2=Sum;
-        answerMapper.insertGrade(answId,sum2);
-        return Sum;
+        return answerMapper.addGrade(answId,Sum);
     }
 
 }

@@ -104,7 +104,10 @@ public class TeacherController {
     @RequestMapping("/testcor")
     public String testcor(Model model){
         List<Answer> corTest=answerService.selCorTest();
-        System.out.println("++++++++"+corTest);
+        if (corTest.size()<1)
+        {
+            model.addAttribute("mes","试卷已经批改完，老师辛苦了！");
+        }
         model.addAttribute("corTest",corTest);
         return "testcor";
     }
@@ -248,17 +251,22 @@ public class TeacherController {
     @RequestMapping("/addgrade")
     public String addgrade(String grade1,String grade2,String ansId,HttpSession session,Model model)
     {
+        float Sum=0;
         int answId=Integer.parseInt(ansId);
         int gra1=Integer.parseInt(grade1);
         int gra2=Integer.parseInt(grade2);
         int[] gra3= (int[]) session.getAttribute("gradeArarry");
-        int studentGrade=answerService.addGrade(answId,gra1,gra2,gra3);
+        Sum=gra1+gra2;
+        answerService.addGrade(answId,Sum,gra3);
         Answer stuAnswer= answerService.selectByPrimaryKey(answId);
         List<Answer> corTest=answerService.selCorTest();
-        System.out.println("++++++++"+corTest);
         model.addAttribute("corTest",corTest);
         String mg="批改成功，学号："+stuAnswer.getSAccount()+"，姓名："+stuAnswer.getSName()+"成绩为："+stuAnswer.getSResult();
         model.addAttribute("mg",mg);
+        if (corTest.size()<1)
+        {
+            model.addAttribute("mes","试卷已经批改完，老师辛苦了！");
+        }
         return "testcor";
     }
     /**

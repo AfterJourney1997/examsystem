@@ -178,7 +178,7 @@
                     <tr><td>${grade}</td></tr>
                 </c:forEach>
                 <tr><td>判断题得分</td></tr>
-                <c:forEach items="${gradeArarry}" var="grade" begin="15" end="30">
+                <c:forEach items="${gradeArarry}" var="grade" begin="16" end="30">
                     <tr><td>${grade}</td></tr>
                 </c:forEach>
                 <tr><td>简答批改</td></tr>
@@ -206,8 +206,11 @@
                     </select>
                     </td>
                 </tr>
+                    <tr><td>
                     <input type="text" name="ansId" style="display:none" value="${answer.answerId}"/>
                     <button type="submit">提交</button>
+                    </td>
+                    </tr>
                 </form>
             </table>
         </td>

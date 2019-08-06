@@ -46,10 +46,10 @@
       saq_answer = #{saqAnswer,jdbcType=LONGVARCHAR}
     where answer_id = #{answerId,jdbcType=INTEGER}
   </update>
-  <update id="insertGrade" parameterType="java.lang.Integer">
+  <update id="addGrade" >
     update exam.answer
     set
-      s_result = #{sum2,jdbcType=REAL},
+      s_result = #{Sum,jdbcType=REAL}
     where answer_id = #{answId,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
