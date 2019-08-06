@@ -87,7 +87,7 @@ public class LoginController {
             model.addAttribute("identity", 3);
             model.addAttribute("user", manager);
             log.info("管理员登录：{}",manager);
-            return new ModelAndView("manager");
+            return new ModelAndView("manager/manager");
         }
 
         return new ModelAndView();

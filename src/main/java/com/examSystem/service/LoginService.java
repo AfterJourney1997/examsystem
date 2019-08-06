@@ -6,6 +6,7 @@ import com.examSystem.dao.StudentMapper;
 import com.examSystem.dao.TeacherMapper;
 import com.examSystem.entity.Login;
 import com.examSystem.entity.Student;
+import com.examSystem.entity.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,4 +47,11 @@ public class LoginService {
         return loginMapper.insert(login);
     }
 
+    //login表添加老师
+    public int addteacher(Teacher teacher) {
+        login.setAccount(teacher.getTAccount());
+        login.setIdentity(1);
+        login.setPassword("1234");
+        return loginMapper.insert(login);
+    }
 }

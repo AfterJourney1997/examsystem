@@ -17,14 +17,18 @@ public class TeacherService {
 
     @Autowired
     StudentService studentService;
-    private final TeacherMapper teacherMapper;
+    @Autowired
+    LoginService loginService;
     @Autowired
     AnswerMapper answerMapper;
     @Autowired
     LoginMapper loginMapper;
     @Autowired
     StudentMapper studentMapper;
-    @Autowired
+
+    private final TeacherMapper teacherMapper;
+
+
     public TeacherService(TeacherMapper teacherMapper) {
         this.teacherMapper = teacherMapper;
     }
@@ -32,18 +36,29 @@ public class TeacherService {
     public Teacher getTeacherByAccount(String account) {
         return teacherMapper.selectByAccount(account);
     }
+
     //添加学生，login表student表分别添加，默认密码1234
-    public  int addstudent(Student student){
+    public int addstudent(Student student) {
         return studentService.addstudent(student);
     }
 
     //删除学生,login,anser,student表中学生数据都会被删除
-    public void delBysAccount(String sid){
+    public void delBysAccount(String sid) {
         studentMapper.delBysAccount(sid);
         loginMapper.delBysAccount(sid);
         answerMapper.delBysAccount(sid);
     }
 
+    //添加老师，login表teacher表分别添加，默认密码1234
+    public int addteacher(Teacher teacher) {
+        loginService.addteacher(teacher);
+        return teacherMapper.insert(teacher);
+    }
 
+    public List<Teacher> getAllTeacherTeacher(String scid){
+        System.out.println(teacherMapper.getAllSchoolTeacher(scid)+"0000000"+scid);
+        return teacherMapper.getAllSchoolTeacher(scid);
+
+    }
 
 }

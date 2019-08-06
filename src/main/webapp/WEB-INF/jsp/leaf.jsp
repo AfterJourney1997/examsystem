@@ -76,9 +76,22 @@
     <c:if test="${sessionScope.identity == 3}">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="#">管理员<span class="sr-only">(current)</span></a></li>
-                <li><a href="#">教师管理</a></li>
-                <li><a href="#">学校管理</a></li>
+                <li class="active"><a href="#">考试管理<span class="sr-only">
+                    (current)</span></a></li>
+                <li><a href="${pageContext.request.contextPath}/arrangeadd">添加考试</a></li>
+                <li><a href="#">删除考试</a></li>
+            </ul>
+            <ul class="nav nav-sidebar">
+                <li class="active"><a href="#">教师管理<span class="sr-only">
+                    (current)</span></a></li>
+                <li><a href="#">添加教师</a></li>
+                <li><a href="#">删除教师</a></li>
+            </ul>
+            <ul class="nav nav-sidebar">
+                <li class="active"><a href="#">学校管理<span class="sr-only">
+                    (current)</span></a></li>
+                <li><a href="#">添加学校</a></li>
+                <li><a href="#">删除学校</a></li>
             </ul>
         </div>
     </c:if>

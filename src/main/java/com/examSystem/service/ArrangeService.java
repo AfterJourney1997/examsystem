@@ -24,4 +24,9 @@ public class ArrangeService {
     public Arrange getArrange(int arrId) {
         return arrangeMapper.selectByPrimaryKey(arrId);
     }
+
+    //添加学生,只添加arrange表
+    public int addarrange(Arrange arrange) {
+        return arrangeMapper.insert(arrange);
+    }
 }

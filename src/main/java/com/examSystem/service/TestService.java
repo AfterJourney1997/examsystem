@@ -2,6 +2,7 @@ package com.examSystem.service;
 
 import com.examSystem.dao.ArrangeMapper;
 import com.examSystem.dao.TestMapper;
+import com.examSystem.entity.School;
 import com.examSystem.entity.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,5 +42,9 @@ public class TestService {
     public int deltest(int testId){
         arrangeMapper.deleteByPrimaryKeyTest(testId);
         return  testMapper.deleteByPrimaryKey(testId);
+    }
+
+    public List<Test> selectAll() {
+        return testMapper.selectAll();
     }
 }
