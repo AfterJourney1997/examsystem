@@ -1,16 +1,20 @@
 package com.examSystem.service;
 
+import com.examSystem.dao.ArrangeMapper;
 import com.examSystem.dao.TestMapper;
 import com.examSystem.entity.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.print.DocFlavor;
+import java.util.List;
 
 @Service
 public class TestService {
 
     private final TestMapper testMapper;
+    @Autowired
+    ArrangeMapper arrangeMapper;
 
     @Autowired
     public TestService(TestMapper testMapper) {
@@ -28,5 +32,14 @@ public class TestService {
     test.setTfqId(TrueFalse);
     test.setSaqId(Short);
     return testMapper.insert(test);
+    }
+    //查询所有试卷
+    public List<Test> getAllTest(){
+        return testMapper.selectAll();
+    }
+    //删除试卷
+    public int deltest(int testId){
+        arrangeMapper.deleteByPrimaryKeyTest(testId);
+        return  testMapper.deleteByPrimaryKey(testId);
     }
 }

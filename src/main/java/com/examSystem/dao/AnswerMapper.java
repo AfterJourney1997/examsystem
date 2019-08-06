@@ -17,9 +17,13 @@ public interface AnswerMapper {
 
     int insert(Answer record);
 
+    int insertGrade(int answId,float sum2);
+
     Answer selectByPrimaryKey(Integer answerId);
 
     List<Answer> selectAll();
+
+    List<Answer> selCorTest();//查询所有待批改试卷
 
     int updateByPrimaryKey(Answer record);
 

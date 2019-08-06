@@ -12,6 +12,8 @@ import java.util.List;
 public interface ArrangeMapper {
     int deleteByPrimaryKey(Integer arrId);
 
+    int deleteByPrimaryKeyTest(Integer testId);
+
     int insert(Arrange record);
 
     Arrange selectByPrimaryKey(Integer arrId);

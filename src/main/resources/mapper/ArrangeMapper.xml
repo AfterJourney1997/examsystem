@@ -14,6 +14,10 @@
     delete from exam.arrange
     where arr_id = #{arrId,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteByPrimaryKeyTest" parameterType="java.lang.Integer">
+    delete from exam.arrange
+    where test_id = #{testId,jdbcType=INTEGER}
+  </delete>
   <insert id="insert" parameterType="com.examSystem.entity.Arrange">
     insert into exam.arrange (arr_id, test_id, sc_id, 
       arr_name, arr_start, arr_stop, arr_status

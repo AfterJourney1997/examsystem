@@ -63,12 +63,80 @@ public class TeacherController {
         return "selstudent";
     }
     /**
-     * 打开添加考试页面
+     * 打开添加试卷页面
      * @return
      */
     @RequestMapping("/testadd")
     public String testadd(){
         return "testadd";
+    }
+    /**
+     * 打开删除试卷页面，查询所有试卷
+     * @return
+     */
+    @RequestMapping("/testdel")
+    public String testdel(Model model){
+    List<Test> listAllTest=testService.getAllTest();
+    model.addAttribute("listAllTest",listAllTest);
+        return "testdel";
+    }
+    /**
+     * 打开删除试卷详情页面，查询该试卷
+     * @return
+     */
+    @RequestMapping("/looktest")
+    public String looktest(String testId, Model model){
+        int tSd =Integer.parseInt(testId);
+        Test test=testService.getTest(tSd);
+        List<Choice> listChoice=choiceService.makeChoice(test.getCqId());
+        List<TrueFalse> listTrueFalse=trueFalseService.makeTrueFalse(test.getTfqId());
+        List<ShortAnswer> listShort=shortAnswerService.makeShortAnswer(test.getSaqId());
+        model.addAttribute("listChoice",listChoice);
+        model.addAttribute("listTrueFalse",listTrueFalse);
+        model.addAttribute("listShort",listShort);
+        model.addAttribute("test",test);
+        return "looktest";
+    }
+    /**
+     * 打开待批改试卷页
+     * @return
+     */
+    @RequestMapping("/testcor")
+    public String testcor(Model model){
+        List<Answer> corTest=answerService.selCorTest();
+        System.out.println("++++++++"+corTest);
+        model.addAttribute("corTest",corTest);
+        return "testcor";
+    }
+    /**
+     * 批改试卷页
+     * @return
+     */
+    @RequestMapping("/correctPapers")
+    public String correctPapers(String answerId,Model model,HttpSession session){
+        int ansId=Integer.parseInt(answerId);
+        Answer answer=answerService.selectByPrimaryKey(ansId);
+        Test test=testService.getTest(answer.getTestId());
+
+        List<Choice> listChoice=choiceService.makeChoice(test.getCqId());
+        List<TrueFalse> listTrueFalse=trueFalseService.makeTrueFalse(test.getTfqId());
+        List<ShortAnswer> listShort=shortAnswerService.makeShortAnswer(test.getSaqId());
+
+        String[] choiceArray=answerService.splitChoice(answer.getCqAnswer());
+        String[] truefalseArray=answerService.splitTrueFalse(answer.getTfqAnswer());
+        String[] shortAnswerArray=answerService.splitShort(answer.getSaqAnswer());
+
+        int[] gradeArarry=answerService.grade(choiceArray,truefalseArray,listChoice,listTrueFalse);
+
+        model.addAttribute("listChoice",listChoice);
+        model.addAttribute("listTrueFalse",listTrueFalse);
+        model.addAttribute("listShort",listShort);
+        model.addAttribute("choiceArray",choiceArray);
+        model.addAttribute("truefalseArray",truefalseArray);
+        model.addAttribute("shortAnswerArray",shortAnswerArray);
+        model.addAttribute("answer",answer);
+        session.setAttribute("gradeArarry",gradeArarry);
+        return "correctPapers";
     }
     /**
      * 查询学生信息
@@ -153,6 +221,45 @@ public class TeacherController {
             model.addAttribute("mg","添加试卷成功");
         }
         return "testadd";
+    }
+    /**
+     * 删除试卷
+     * @return
+     */
+    @RequestMapping("/deltest")
+    public String deltest(String testId,Model model){
+        int tSd=Integer.parseInt(testId);
+        if(answerService.selTestCheck(tSd)<1)
+        {
+            model.addAttribute("mg","删除失败，存在未批改改试卷的学生");
+        }else {
+            testService.deltest(tSd);
+            model.addAttribute("mg","删除成功");
+        }
+        List<Test> listAllTest=testService.getAllTest();
+        model.addAttribute("listAllTest",listAllTest);
+        return "testdel";
+    }
+
+    /**
+     * 添加成绩
+     * @return
+     */
+    @RequestMapping("/addgrade")
+    public String addgrade(String grade1,String grade2,String ansId,HttpSession session,Model model)
+    {
+        int answId=Integer.parseInt(ansId);
+        int gra1=Integer.parseInt(grade1);
+        int gra2=Integer.parseInt(grade2);
+        int[] gra3= (int[]) session.getAttribute("gradeArarry");
+        int studentGrade=answerService.addGrade(answId,gra1,gra2,gra3);
+        Answer stuAnswer= answerService.selectByPrimaryKey(answId);
+        List<Answer> corTest=answerService.selCorTest();
+        System.out.println("++++++++"+corTest);
+        model.addAttribute("corTest",corTest);
+        String mg="批改成功，学号："+stuAnswer.getSAccount()+"，姓名："+stuAnswer.getSName()+"成绩为："+stuAnswer.getSResult();
+        model.addAttribute("mg",mg);
+        return "testcor";
     }
     /**
      * 打开注册页

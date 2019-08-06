@@ -16,7 +16,7 @@
                 <ul class="hide">
                     <li><a href="/examsystem/testadd">添加试卷</a></li>
                     <li><a href="/examsystem/testdel">删除试卷</a></li>
-                    <li>批改试卷</li>
+                    <li><a href="/examsystem/testcor">批改试卷</a></li>
                 </ul>
             </li>
 

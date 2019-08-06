@@ -46,6 +46,12 @@
       saq_answer = #{saqAnswer,jdbcType=LONGVARCHAR}
     where answer_id = #{answerId,jdbcType=INTEGER}
   </update>
+  <update id="insertGrade" parameterType="java.lang.Integer">
+    update exam.answer
+    set
+      s_result = #{sum2,jdbcType=REAL},
+    where answer_id = #{answId,jdbcType=INTEGER}
+  </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select answer_id, arr_id, test_id, s_account, s_name, cq_answer, tfq_answer, s_result, 
     saq_answer
@@ -56,6 +62,12 @@
     select answer_id, arr_id, test_id, s_account, s_name, cq_answer, tfq_answer, s_result,
     saq_answer
     from exam.answer
+  </select>
+  <select id="selCorTest" resultMap="BaseResultMap">
+    select answer_id, arr_id, test_id, s_account, s_name, cq_answer, tfq_answer, s_result,
+    saq_answer
+    from exam.answer
+    where s_result is null or trim(s_result)=''
   </select>
   <select id="selectBySAccount" resultMap="BaseResultMap">
     select answer_id, arr_id, test_id, s_account, s_name, cq_answer, tfq_answer, s_result,
