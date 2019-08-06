@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
-
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -44,14 +43,15 @@
         background-color: #428bca;
     }
 </style>
+
 <body>
     <!-- 加一个判断条件 -->
     <c:if test="${sessionScope.identity == 1}">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
                 <li class="active"><a href="${pageContext.request.contextPath}/student">学生<span class="sr-only">(current)</span></a></li>
-                <li><a href="${pageContext.request.contextPath}/student/examInfo">查看考试</a></li>
-                <li><a href="${pageContext.request.contextPath}/student/result">查看成绩</a></li>
+                <li><a href="${pageContext.request.contextPath}/student/examInfo"> 查看考试</a></li>
+                <li><a href="${pageContext.request.contextPath}/student/result"> 查看成绩</a></li>
             </ul>
         </div>
     </c:if>
@@ -59,12 +59,16 @@
     <c:if test="${sessionScope.identity == 2}">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="#">教师<span class="sr-only">(current)</span></a></li>
-                <li><a href="#">学生管理</a></li>
-                <li><a href="#">题库管理</a></li>
-                <li><a href="#">试卷管理</a></li>
-                <li><a href="#">批改试卷</a></li>
-                <li><a href="#">统计成绩</a></li>
+                <li class="active"><a href="#">学生管理<span class="sr-only">(current)</span></a></li>
+                <li><a href="${pageContext.request.contextPath}/studentadd"> 添加学生</a></li>
+                <li><a href="${pageContext.request.contextPath}/studentdel?scid=${sessionScope.school.getScId()}"> 删除学生</a></li>
+                <li><a href="${pageContext.request.contextPath}/studentsel"> 查询学生</a></li>
+            </ul>
+            <ul class="nav nav-sidebar">
+                <li class="active"><a href="#">试卷管理<span class="sr-only">(current)</span></a></li>
+                <li><a href="${pageContext.request.contextPath}/testadd"> 添加试卷</a></li>
+                <li><a href="${pageContext.request.contextPath}/testdel"> 删除试卷</a></li>
+                <li><a href="${pageContext.request.contextPath}/testcor"> 批改试卷</a></li>
             </ul>
         </div>
     </c:if>
@@ -79,5 +83,4 @@
         </div>
     </c:if>
 
-</body>
 </html>

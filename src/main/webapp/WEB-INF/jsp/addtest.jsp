@@ -1,144 +1,109 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.examSystem.entity.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<% Teacher teacher=(Teacher) session.getAttribute("user");%>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <style>
-        *{
-            margin:0;
-            padding:0;
-        }
-        ul,li{
-            list-style: none;
-        }
-        .closed{
-            display: block;
-            width: 200px;
-            background-color: coral;
-        }
-        #manager ul li{
-            width: 200px;
-            line-height: 30px;
-            text-align: center;
-            cursor: pointer;
-        }
-        .hide{
-            display: none;
-        }
-        .show{
-            display: block;
-        }
-        .open{
-            display: block;
-            background-color: coral;
-        }
-        .hide{
-            display: none;
-        }
-        #manager ul li.pro{
-            border:1px solid #fff;
-        }
-        #manager ul li ul li{
-            padding:3px 0;
-            border: 0;
-            color:lightgray;
-            line-height: 20px;
-            border-top:1px solid #fff;
-            background-color: darkorchid;
-        }
-        #manager ul li ul li:hover{
-            color: #fff;
-        }
-        #manager ul li ul li:last-child{
-            border-bottom:1px solid #fff;
-        }
-    </style>
-    <title>TeacherHome</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>省级初中信息技术结业在线考试系统 - 添加试卷</title>
 </head>
-<script src="js/jquery-3.2.1.min.js"></script>
-<script>
-    function toggleTable(span){
-//            如果span的class为open
-        if(span.className=="open"){
-//                将span的class设为closed
-            span.className="closed";
-//                将span的下一个兄弟元素的class改为hide
-            span.nextElementSibling.className="hide";
-        }else{//否则
-//                查找class为tree的元素下的一个class为open的span,保存在open中
-            var open=document.querySelector("[class=tree] span[class=open]");
-            if(open!=null){
-//                    设置open的class为closed
-                open.className="closed";
-//                    设置open的下一个兄弟元素的class为hide
-                open.nextElementSibling.className="hide";
-            }
-            span.className="open";
-            span.nextElementSibling.className="show";
+<style>
+    body {
+        padding-top: 50px;
+        padding-left: 221px;
+    }
+    .main {
+        padding: 20px;
+    }
+    @media (min-width: 768px) {
+        .main {
+            padding-right: 40px;
+            padding-left: 40px;
         }
     }
-</script>
+    .main {
+        margin-top: 0;
+    }
+</style>
 <body>
-<table>
-    <tr>
-        <td colspan="2" align="right">欢迎<%=teacher.getTName()%>老师</td>
-    </tr>
-    <tr valign="top">
-        <td width="20%">
-            <%@include file="teacherleft.jspf" %>
-        </td>
-        <td align="center">
-            <br>
-            <form action="/examsystem/addtest">
-                <input type="submit" value="随机生成" />
-            </form>
-            <br>
-            <table border="1">
-             <tr>
-                 <td>选择题编号</td><td>问题</td><td>选项一</td><td>选项二</td><td>选项三</td><td>选项四</td><td>答案</td>
-             </tr>
-                <c:forEach var="choice" items="${listChoice}" varStatus="status">
-                <tr>
-                    <td>${status.count}</td>
-                    <td>${choice.cqContent}</td>
-                    <td>${choice.cqA}</td>
-                    <td>${choice.cqB}</td>
-                    <td>${choice.cqC}</td>
-                    <td>${choice.cqD}</td>
-                    <td>${choice.cqCorrect}</td>
-                </tr>
-                </c:forEach>
-                <tr>
-                    <td>判断题编号</td><td>问题</td><td>答案</td>
-                </tr>
-                <c:forEach var="trueFalse" items="${listTrueFalse}" varStatus="status">
-                <tr>
-                    <td>${status.count}</td>
-                    <td>${trueFalse.tfqContent}</td>
-                    <td>${trueFalse.tfqCorrect}</td>
-                </tr>
-                </c:forEach>
-                <tr>
-                    <td>简答题编号</td><td>问题</td><td>答案</td>
-                </tr>
-                <c:forEach var="shortanswer" items="${listShort}" varStatus="status">
-                    <tr>
-                        <td>${status.count}</td>
-                        <td>${shortanswer.saqContent}</td>
-                        <td>${shortanswer.saqCorrect}</td>
-                    </tr>
-                </c:forEach>
-            </table>
-        </td>
-        <td style="vertical-align:middle;text-align:center;">
-            <form action="/examsystem/inserttest">
-                试卷名称：<input name="testname" type="text"/><br>
-                <input type="submit" value="保存试卷" />
-            </form>
-        </td>
-    </tr>
-</table>
+<%@include file="head.jsp"%>
+<%@include file="leaf.jsp"%>
+
+<div class="main">
+
+    <form class="form-inline" action="${pageContext.request.contextPath}/addtest">
+        <button type="submit" class="btn btn-default">随机生成</button>
+    </form>
+
+    <table class="table table-striped table-hover">
+        <tr>
+            <th>选择题编号</th>
+            <th>问题</th>
+            <th>选项一</th>
+            <th>选项二</th>
+            <th>选项三</th>
+            <th>选项四</th>
+            <th>答案</th>
+        </tr>
+        <c:forEach var="choice" items="${listChoice}" varStatus="status">
+            <tr>
+                <td>${status.count}</td>
+                <td>${choice.cqContent}</td>
+                <td>${choice.cqA}</td>
+                <td>${choice.cqB}</td>
+                <td>${choice.cqC}</td>
+                <td>${choice.cqD}</td>
+                <td>${choice.cqCorrect}</td>
+            </tr>
+        </c:forEach>
+    </table>
+
+    <table class="table table-striped table-hover">
+        <tr>
+            <th>判断题编号</th>
+            <th>问题</th>
+            <th>答案</th>
+        </tr>
+        <c:forEach var="trueFalse" items="${listTrueFalse}" varStatus="status">
+            <tr>
+                <td>${status.count}</td>
+                <td>${trueFalse.tfqContent}</td>
+                <td>${trueFalse.tfqCorrect}</td>
+            </tr>
+        </c:forEach>
+    </table>
+
+    <table class="table table-striped table-hover">
+        <tr>
+            <th>简答题编号</th>
+            <th>问题</th>
+            <th>答案</th>
+        </tr>
+        <c:forEach var="shortanswer" items="${listShort}" varStatus="status">
+            <tr>
+                <td>${status.count}</td>
+                <td>${shortanswer.saqContent}</td>
+                <td>${shortanswer.saqCorrect}</td>
+            </tr>
+        </c:forEach>
+    </table>
+
+    <div style="vertical-align:middle;text-align:center;">
+        <form class="form-inline" action="${pageContext.request.contextPath}/inserttest">
+            <div class="form-group">
+                <label>试卷名称</label>
+                <input type="text" class="form-control" name="testname" placeholder="试卷名称">
+            </div>
+            <button type="submit" class="btn btn-default">保存试卷</button>
+        </form>
+    </div>
+
+</div>
+
 </body>
 </html>

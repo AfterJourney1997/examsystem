@@ -5,6 +5,11 @@
 <html>
 <head>
     <meta charset="utf-8">
+
+    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>省级初中信息技术结业在线考试系统 - 考试</title>
 </head>
@@ -40,7 +45,7 @@
             <h4>${sessionScope.examInfo.getArrName()}</h4>
         </div>
         <br><br><br>
-        <form action="${pageContext.request.contextPath}/student/submit" method="POST">
+        <form id="form" action="${pageContext.request.contextPath}/student/submit" method="POST">
 
             <div><h3>一、选择题</h3></div>
             <table class="table table-hover table-striped">
@@ -49,10 +54,10 @@
                         <td colspan="4">${status.index + 1} ${item.cqContent}</td>
                     </tr>
                     <tr>
-                        <td><input type="radio" name="${status.index + 1}" value="A" checked="checked"/>${item.cqA}</td>
-                        <td><input type="radio" name="${status.index + 1}" value="B"/>${item.cqB}</td>
-                        <td><input type="radio" name="${status.index + 1}" value="C"/>${item.cqC}</td>
-                        <td><input type="radio" name="${status.index + 1}" value="D"/>${item.cqD}</td>
+                        <td><input type="radio" name="cq${status.index + 1}" value="A" checked="checked"/>${item.cqA}</td>
+                        <td><input type="radio" name="cq${status.index + 1}" value="B"/>${item.cqB}</td>
+                        <td><input type="radio" name="cq${status.index + 1}" value="C"/>${item.cqC}</td>
+                        <td><input type="radio" name="cq${status.index + 1}" value="D"/>${item.cqD}</td>
                     </tr>
                 </c:forEach>
             </table>
@@ -64,8 +69,8 @@
                         <td colspan="2">${status.index + 1} ${item.tfqContent}</td>
                     </tr>
                     <tr>
-                        <td><input type="radio" name="${status.index + 1}" value="T" checked="checked"/>正确</td>
-                        <td><input type="radio" name="${status.index + 1}" value="F"/>错误</td>
+                        <td><input type="radio" name="tfq${status.index + 1}" value="T" checked="checked"/>正确</td>
+                        <td><input type="radio" name="tfq${status.index + 1}" value="F"/>错误</td>
                     </tr>
                 </c:forEach>
 
@@ -77,14 +82,43 @@
                         <td colspan="2">${status.index + 1} ${item.saqContent}</td>
                     </tr>
                     <tr>
-                        <td colspan="2"><textarea class="form-control" rows="3" name="${status.index + 1}"></textarea></td>
+                        <td colspan="2"><textarea class="form-control" rows="3" name="saq${status.index + 1}"></textarea></td>
                     </tr>
                 </c:forEach>
             </table>
 
-            <button type="submit" class="btn btn-success">交卷</button>
+            <input class="btn btn-success" id="submit" type="button" value="交卷" name="submit">
         </form>
     </div>
 </div>
+
+<script>
+
+    $(function () {
+        $('#submit').click(function () {
+            var d = {};
+            var t = $('form').serializeArray();
+            $.each(t, function () {
+                d[this.name] = this.value;
+            });
+            console.log(JSON.stringify(d));
+
+            var form = $("<form method='post'></form>"),
+                input;
+            form.attr({"action":"${pageContext.request.contextPath}/student/submit"});
+            input = $("<input type='hidden'>");
+            input.attr({"name":"json"});
+            input.val(JSON.stringify(d));
+            form.append(input);
+            $(document.body).append(form);
+            form.submit();
+
+        });
+    });
+
+
+
+</script>
+
 </body>
 </html>

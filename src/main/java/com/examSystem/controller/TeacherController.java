@@ -1,21 +1,15 @@
 package com.examSystem.controller;
 
-
 import com.examSystem.entity.*;
 import com.examSystem.entity.Student;
 import com.examSystem.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.HttpSessionRequiredException;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 /**
  * 这里配置默认可以打开的页面
@@ -36,29 +30,32 @@ public class TeacherController {
     StudentService studentService;
     @Resource
     TestService testService;
+
     /**
      * 进入添加学生页面
      * @return
      */
-    @RequestMapping({"/studentadd"})
+    @RequestMapping(value = "/studentadd")
     public String studentadd(){
         return "addstudent";
     }
+
     /**
      * 删除学生页面，获得全部学生
      * @return
      */
-    @RequestMapping({"/studentdel"})
+    @RequestMapping(value = "/studentdel")
     public String studentdel(String scid,Model model){
-        List<Student> stu = studentService.getAllStudentStudent(scid);
-        model.addAttribute("stu",stu);
+        List<Student> students = studentService.getAllStudentStudent(scid);
+        model.addAttribute("students",students);
         return "delstudent";
     }
+
     /**
      * 查询学生页面
      * @return
      */
-    @RequestMapping({"/studentsel"})
+    @RequestMapping(value = "/studentsel" )
     public String studentsel(){
         return "selstudent";
     }
@@ -66,7 +63,7 @@ public class TeacherController {
      * 打开添加试卷页面
      * @return
      */
-    @RequestMapping("/testadd")
+    @RequestMapping(value = "/testadd")
     public String testadd(){
         return "testadd";
     }
@@ -74,7 +71,7 @@ public class TeacherController {
      * 打开删除试卷页面，查询所有试卷
      * @return
      */
-    @RequestMapping("/testdel")
+    @RequestMapping(value = "/testdel")
     public String testdel(Model model){
     List<Test> listAllTest=testService.getAllTest();
     model.addAttribute("listAllTest",listAllTest);
@@ -84,7 +81,7 @@ public class TeacherController {
      * 打开删除试卷详情页面，查询该试卷
      * @return
      */
-    @RequestMapping("/looktest")
+    @RequestMapping(value = "/looktest")
     public String looktest(String testId, Model model){
         int tSd =Integer.parseInt(testId);
         Test test=testService.getTest(tSd);
@@ -101,7 +98,7 @@ public class TeacherController {
      * 打开待批改试卷页
      * @return
      */
-    @RequestMapping("/testcor")
+    @RequestMapping(value = "/testcor")
     public String testcor(Model model){
         List<Answer> corTest=answerService.selCorTest();
         if (corTest.size()<1)
@@ -115,7 +112,7 @@ public class TeacherController {
      * 批改试卷页
      * @return
      */
-    @RequestMapping("/correctPapers")
+    @RequestMapping(value = "/correctPapers")
     public String correctPapers(String answerId,Model model,HttpSession session){
         int ansId=Integer.parseInt(answerId);
         Answer answer=answerService.selectByPrimaryKey(ansId);
@@ -166,7 +163,7 @@ public class TeacherController {
      * 添加学生
      * @return
      */
-    @RequestMapping("/addstudent")
+    @RequestMapping(value = "/addstudent")
     public String addstudent(Student student, Model model){
         if(ts.addstudent(student)>0)
         {
@@ -181,7 +178,7 @@ public class TeacherController {
      * 删除学生
      * @return
      */
-    @RequestMapping("/delstudent")
+    @RequestMapping(value = "/delstudent")
     public String delstudent(String sId,String scid,Model model){
         ts.delBysAccount(sId);
         List<Student> stu= studentService.getAllStudentStudent(scid);
@@ -214,7 +211,7 @@ public class TeacherController {
      * 添加试卷
      * @return
      */
-    @RequestMapping("/inserttest")
+    @RequestMapping(value = "/inserttest")
     public String inserttest(String testname,HttpSession session,Model model){
         String Choice=(String)session.getAttribute("Choice");
         String TrueFalse=(String)session.getAttribute("TrueFalse");
@@ -229,7 +226,7 @@ public class TeacherController {
      * 删除试卷
      * @return
      */
-    @RequestMapping("/deltest")
+    @RequestMapping(value = "/deltest")
     public String deltest(String testId,Model model){
         int tSd=Integer.parseInt(testId);
         if(answerService.selTestCheck(tSd)<1)
@@ -248,7 +245,7 @@ public class TeacherController {
      * 添加成绩
      * @return
      */
-    @RequestMapping("/addgrade")
+    @RequestMapping(value = "/addgrade")
     public String addgrade(String grade1,String grade2,String ansId,HttpSession session,Model model)
     {
         float Sum=0;
@@ -269,12 +266,5 @@ public class TeacherController {
         }
         return "testcor";
     }
-    /**
-     * 打开注册页
-     * @return
-     */
-    @RequestMapping("/regPage.do")
-    public String regPage(){
-        return "UserReg";
-    }
+
 }

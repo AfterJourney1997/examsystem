@@ -6,6 +6,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <style>
+        body {
+            padding-top: 50px;
+        }
         *{
             margin:0;
             padding:0;
@@ -81,10 +84,9 @@
     }
 </script>
 <body>
+<%@include file="head.jsp"%>
+<%@include file="leaf.jsp"%>
 <table>
-    <tr>
-        <td colspan="2" align="right">欢迎<%=teacher.getTName()%>老师</td>
-    </tr>
     <tr valign="top">
         <td width="20%">
             <%@include file="teacherleft.jspf" %>

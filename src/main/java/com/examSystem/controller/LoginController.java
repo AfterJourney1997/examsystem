@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 @Slf4j
@@ -19,6 +20,7 @@ import java.util.Optional;
 @SessionAttributes(value = {"user", "school", "identity"})
 public class LoginController {
 
+    private final HttpServletRequest request;
     private final LoginService loginService;
     private final StudentService studentService;
     private final TeacherService teacherService;
@@ -26,7 +28,8 @@ public class LoginController {
     private final SchoolService schoolService;
 
     @Autowired
-    public LoginController(LoginService loginService, StudentService studentService, TeacherService teacherService, ManagerService managerService, SchoolService schoolService) {
+    public LoginController(HttpServletRequest request, LoginService loginService, StudentService studentService, TeacherService teacherService, ManagerService managerService, SchoolService schoolService) {
+        this.request = request;
         this.loginService = loginService;
         this.studentService = studentService;
         this.teacherService = teacherService;
@@ -89,5 +92,14 @@ public class LoginController {
 
         return new ModelAndView();
 
+    }
+
+    @RequestMapping(value = "/exit", method = RequestMethod.GET)
+    public ModelAndView exit(){
+        request.getSession().setAttribute("user", null);
+        request.getSession().setAttribute("school", null);
+        request.getSession().setAttribute("identity", null);
+
+        return new ModelAndView("login");
     }
 }

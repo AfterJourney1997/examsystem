@@ -1,8 +1,11 @@
 package com.examSystem.controller;
 
 import cn.hutool.core.util.ArrayUtil;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.examSystem.entity.*;
 import com.examSystem.service.*;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -106,26 +110,51 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
-    public ModelAndView submitExam(String[] choiceList, String[] trueFalseList, String[] shortAnswerList) {
+    public ModelAndView submitExam(@NonNull String json) {
+
+        JSONObject jsonObject = JSON.parseObject(json);
+
+        List<String> choiceList = new ArrayList<>();
+        List<String> trueFalseList = new ArrayList<>();
+        List<String> shortAnswerList = new ArrayList<>();
+
+        for(int i = 1; i <= 15; i ++){
+            choiceList.add(jsonObject.getString("cq" + i));
+            trueFalseList.add(jsonObject.getString("tfq" + i));
+        }
+
+        for (int i = 1; i <= 2; i++){
+            shortAnswerList.add(jsonObject.getString("saq" + i));
+        }
 
         // 获取session中的用户值
         Object user = request.getSession().getAttribute("user");
         Student student = (Student) user;
 
         // 获取session中考试信息
-        Object exam = request.getSession().getAttribute("exam");
+        Object exam = request.getSession().getAttribute("examInfo");
         Arrange arrange = (Arrange)exam;
 
-        String choices = ArrayUtil.join(choiceList, "/");
-        String trueFalses = ArrayUtil.join(trueFalseList, "/");
-        String shortAnswers = ArrayUtil.join(shortAnswerList, "/");
+        String choices = ArrayUtil.join(choiceList.toArray(new String[0]), "/");
+        String trueFalses = ArrayUtil.join(trueFalseList.toArray(new String[0]), "/");
+        String shortAnswers = ArrayUtil.join(shortAnswerList.toArray(new String[0]), "/");
 
-        Answer answer = new Answer(null, arrange.getArrId(), arrange.getTestId(), student.getSAccount(),
-                student.getSName(), choices, trueFalses, null, shortAnswers);
+        Answer answer = new Answer();
+        answer.setAnswerId(null);
+        answer.setArrId(arrange.getArrId());
+        answer.setTestId(arrange.getTestId());
+        answer.setSAccount(student.getSAccount());
+        answer.setSName(student.getSName());
+        answer.setCqAnswer(choices);
+        answer.setTfqAnswer(trueFalses);
+        answer.setSaqAnswer(shortAnswers);
+        answer.setSResult(null);
 
         answerService.insertAnswer(answer);
+        log.info("学生交卷：{}", answer);
 
         return new ModelAndView("student/finish");
     }
+
 
 }

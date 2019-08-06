@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Array;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -25,7 +26,10 @@ public class AnswerService {
     }
 
     public List<Result> getStudentResult(String sAccount){
-        return answerMapper.selectResult(sAccount);
+        List<Result> results = answerMapper.selectResult(sAccount);
+        return results.stream()
+                .filter((e) -> e.getFraction() > 0.0001F)
+                .collect(Collectors.toList());
     }
 
     public void insertAnswer(Answer answer){
