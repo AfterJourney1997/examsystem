@@ -32,7 +32,7 @@
         <div class="form-group">
             <label>所属学校</label>
             <select name="scId" class="form-control">
-                <c:forEach var="item" items="${school}">
+                <c:forEach var="item" items="${requestScope.schools}">
                     <option value="${item.scId}">${item.scName}</option>
                 </c:forEach>
             </select>

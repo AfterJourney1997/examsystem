@@ -162,7 +162,7 @@ public class ManagerController {
     @RequestMapping({"/arrangeadd"})
     public String arrangeadd(Model model) {
         List<School> sc = schoolService.selectAll();
-        model.addAttribute("school", sc);
+        model.addAttribute("schools", sc);
         List<Test> ts = testService.selectAll();
         model.addAttribute("test", ts);
         return "manager/addarrange";
@@ -191,6 +191,12 @@ public class ManagerController {
         arrange.setArrStatus(Integer.parseInt(arrStatus));
         arrange.setArrStart(LocalDateTime.parse(arrStart, dateTimeFormatter));
         arrange.setArrStop(LocalDateTime.parse(arrStop, dateTimeFormatter));
+
+        LocalDateTime now = LocalDateTime.now();
+        if(now.isAfter(arrange.getArrStart())){
+            arrange.setArrStatus(1);
+        }
+
         if (managerService.addarrange(arrange) > 0) {
             String out = "添加成功,考试安排" + arrange.getArrName();
             model.addAttribute("model", out);

@@ -37,7 +37,7 @@
         </div>
         <input type="hidden" class="form-control" name="scId" value="${sessionScope.school.getScId()}">
 
-        <button type="submit" class="btn btn-default">添加</button>
+        <button style="margin: 0 auto" type="submit" class="btn btn-default">添加</button>
 
     </form>
 </div>
