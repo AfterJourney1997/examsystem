@@ -3,8 +3,8 @@
         PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
-    <!--mysql 连接数据库jar 这里选择自己本地位置-->
-    <classPathEntry location="D:\Java\apache-maven-3.6.0\mvnRespo\mysql\mysql-connector-java\5.1.46\mysql-connector-java-5.1.46.jar"/>
+<!--    &lt;!&ndash;mysql 连接数据库jar 这里选择自己本地位置&ndash;&gt;-->
+<!--    <classPathEntry location="D:\Java\apache-maven-3.6.0\mvnRespo\mysql\mysql-connector-java\5.1.46\mysql-connector-java-5.1.46.jar"/>-->
     <context id="testTables" targetRuntime="MyBatis3Simple">
 
         <commentGenerator>
@@ -16,7 +16,7 @@
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://localhost:3306/exam?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai"
                         userId="root"
-                        password="root">
+                        password="123456">
         </jdbcConnection>
 
         <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和
@@ -61,8 +61,8 @@
         <!--<table tableName="t_black_list" domainObjectName="BlackList"></table>-->
         <!--<table tableName="t_interaction_plugin" domainObjectName="InteractionPlugin"></table>-->
         <!--<table tableName="t_wholeplugin" domainObjectName="WholePlugin"></table>-->
-        <table catalog="exam" tableName="shortanswer" domainObjectName="ShortAnswer"></table>
-        <table catalog="exam" tableName="truefalse" domainObjectName="TrueFalse"></table>
-        <table catalog="exam" tableName="choice" domainObjectName="Choice"></table>
+        <table catalog="exam" tableName="difficultychoice" domainObjectName="Dchoice"></table>
+        <table catalog="exam" tableName="difficultyshortanswer" domainObjectName="Dshortanswer"></table>
+        <table catalog="exam" tableName="difficultytruefalse" domainObjectName="Dtruefalse"></table>
     </context>
 </generatorConfiguration>

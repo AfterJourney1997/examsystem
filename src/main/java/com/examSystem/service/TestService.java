@@ -26,12 +26,13 @@ public class TestService {
         return testMapper.selectByPrimaryKey(testId);
     }
     //添加试卷
-    public int inserttest(String testname, String Choice, String TrueFalse, String Short){
+    public int inserttest(String testname, String Choice, String TrueFalse, String Short,Integer grade){
     Test test=new Test();
     test.setTestName(testname);
     test.setCqId(Choice);
     test.setTfqId(TrueFalse);
     test.setSaqId(Short);
+    test.setGrade(grade);
     return testMapper.insert(test);
     }
     //查询所有试卷

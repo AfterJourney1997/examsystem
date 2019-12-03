@@ -20,6 +20,11 @@
 <div class="main">
 
     <form class="form-inline" action="${pageContext.request.contextPath}/addtest">
+        <P>试卷难度选择： <select class="form-control" name="grade">
+            <option value="1">简单</option>
+            <option value="2">一般</option>
+            <option value="3">困难</option>
+        </select></P>
         <button type="submit" class="btn btn-default">随机生成</button>
     </form>
 

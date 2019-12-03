@@ -17,5 +17,5 @@ public class Test {
     private String cqId;
     private String tfqId;
     private String saqId;
-
+    private Integer grade;
 }

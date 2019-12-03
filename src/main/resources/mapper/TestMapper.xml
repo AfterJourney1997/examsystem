@@ -7,6 +7,7 @@
     <result column="cq_id" jdbcType="VARCHAR" property="cqId" />
     <result column="tfq_id" jdbcType="VARCHAR" property="tfqId" />
     <result column="saq_id" jdbcType="VARCHAR" property="saqId" />
+    <result column="grade" jdbcType="INTEGER" property="grade" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from exam.test
@@ -14,9 +15,9 @@
   </delete>
   <insert id="insert" parameterType="com.examSystem.entity.Test">
     insert into exam.test (test_id, test_name, cq_id, 
-      tfq_id, saq_id)
+      tfq_id, saq_id,grade)
     values (#{testId,jdbcType=INTEGER}, #{testName,jdbcType=VARCHAR}, #{cqId,jdbcType=VARCHAR}, 
-      #{tfqId,jdbcType=VARCHAR}, #{saqId,jdbcType=VARCHAR})
+      #{tfqId,jdbcType=VARCHAR}, #{saqId,jdbcType=VARCHAR},#{grade,jdbcType=INTEGER})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.examSystem.entity.Test">
     update exam.test
@@ -27,12 +28,12 @@
     where test_id = #{testId,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select test_id, test_name, cq_id, tfq_id, saq_id
+    select test_id, test_name, cq_id, tfq_id, saq_id,grade
     from exam.test
     where test_id = #{testId,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select test_id, test_name, cq_id, tfq_id, saq_id
+    select test_id, test_name, cq_id, tfq_id, saq_id, grade
     from exam.test
   </select>
 </mapper>

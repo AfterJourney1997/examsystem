@@ -79,7 +79,6 @@ public class StudentController {
 
         arrangeList.addAll(tempList);
         log.info("查询考试：{}", arrangeList);
-
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         model.addAttribute("dateTimeFormatter", dateTimeFormatter);
@@ -111,13 +110,17 @@ public class StudentController {
         Test test = testService.getTest(testId);
         log.info("考试信息：{}", arrange);
         // 获取选择题、判断题、简答题id
-        String[] choices = test.getCqId().split("/");
-        String[] trueFalses = test.getTfqId().split("/");
-        String[] shortAnswers = test.getSaqId().split("/");
 
-        List<Choice> choiceList = choiceService.getChoiceList(choices);
-        List<TrueFalse> trueFalseList = trueFalseService.getTrueFalseList(trueFalses);
-        List<ShortAnswer> shortAnswerList = shortAnswerService.getShortAnswerList(shortAnswers);
+//        String[] choices = test.getCqId().split("/");
+//        String[] trueFalses = test.getTfqId().split("/");
+//        String[] shortAnswers = test.getSaqId().split("/");
+
+        //List<Choice> choiceList = choiceService.getChoiceList(choices);
+//        List<TrueFalse> trueFalseList = trueFalseService.getTrueFalseList(trueFalses);
+//        List<ShortAnswer> shortAnswerList = shortAnswerService.getShortAnswerList(shortAnswers);
+        List<Choice> choiceList = choiceService.makeChoice(test.getCqId(),test.getGrade());
+        List<TrueFalse> trueFalseList = trueFalseService.makeTrueFalse(test.getTfqId(),test.getGrade());
+        List<ShortAnswer> shortAnswerList = shortAnswerService.makeShortAnswer(test.getSaqId(),test.getGrade());
 
         model.addAttribute("examInfo", arrange);
         model.addAttribute("choice", choiceList);

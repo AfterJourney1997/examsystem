@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -47,10 +48,10 @@ public class TeacherController {
      * @return
      */
     @RequestMapping(value = "/studentdel")
-    public String studentdel(String scid,Model model){
+    public ModelAndView studentdel(String scid,Model model){
         List<Student> students = studentService.getAllStudentStudent(scid);
         model.addAttribute("students",students);
-        return "delstudent";
+        return new ModelAndView("delstudent") ;
     }
 
     /**
@@ -87,9 +88,9 @@ public class TeacherController {
     public String looktest(String testId, Model model){
         int tSd =Integer.parseInt(testId);
         Test test=testService.getTest(tSd);
-        List<Choice> listChoice=choiceService.makeChoice(test.getCqId());
-        List<TrueFalse> listTrueFalse=trueFalseService.makeTrueFalse(test.getTfqId());
-        List<ShortAnswer> listShort=shortAnswerService.makeShortAnswer(test.getSaqId());
+        List<Choice> listChoice=choiceService.makeChoice(test.getCqId(),test.getGrade());
+        List<TrueFalse> listTrueFalse=trueFalseService.makeTrueFalse(test.getTfqId(),test.getGrade());
+        List<ShortAnswer> listShort=shortAnswerService.makeShortAnswer(test.getSaqId(),test.getGrade());
         model.addAttribute("listChoice",listChoice);
         model.addAttribute("listTrueFalse",listTrueFalse);
         model.addAttribute("listShort",listShort);
@@ -120,9 +121,9 @@ public class TeacherController {
         Answer answer=answerService.selectByPrimaryKey(ansId);
         Test test=testService.getTest(answer.getTestId());
 
-        List<Choice> listChoice=choiceService.makeChoice(test.getCqId());
-        List<TrueFalse> listTrueFalse=trueFalseService.makeTrueFalse(test.getTfqId());
-        List<ShortAnswer> listShort=shortAnswerService.makeShortAnswer(test.getSaqId());
+        List<Choice> listChoice=choiceService.makeChoice(test.getCqId(),test.getGrade());
+        List<TrueFalse> listTrueFalse=trueFalseService.makeTrueFalse(test.getTfqId(),test.getGrade());
+        List<ShortAnswer> listShort=shortAnswerService.makeShortAnswer(test.getSaqId(),test.getGrade());
 
         String[] choiceArray=answerService.splitChoice(answer.getCqAnswer());
         String[] truefalseArray=answerService.splitTrueFalse(answer.getTfqAnswer());
@@ -192,13 +193,23 @@ public class TeacherController {
      * @return
      */
     @RequestMapping("/addtest")
-    public String addtest(Model model,HttpSession session){
-      String Choice=choiceService.addTestChoice();
-      String TrueFalse =trueFalseService.addTestTrueFalse();
-      String Short=shortAnswerService.addTestShort();
-      List<Choice> listChoice=choiceService.makeChoice(Choice);
-      List<TrueFalse> listTrueFalse=trueFalseService.makeTrueFalse(TrueFalse);
-      List<ShortAnswer> listShort=shortAnswerService.makeShortAnswer(Short);
+    public String addtest(Model model,HttpSession session,String grade){
+      System.out.println("%%%%%%%%%%%%%%%%%%%%"+grade);
+      String Choice;
+      String TrueFalse;
+      String Short;
+      List<Choice> listChoice;
+      List<TrueFalse> listTrueFalse;
+      List<ShortAnswer> listShort;
+
+      Choice=choiceService.addTestChoice(Integer.parseInt(grade));
+      TrueFalse =trueFalseService.addTestTrueFalse(Integer.parseInt(grade));
+      Short=shortAnswerService.addTestShort(Integer.parseInt(grade));
+      listChoice=choiceService.makeChoice(Choice,Integer.parseInt(grade));
+      listTrueFalse=trueFalseService.makeTrueFalse(TrueFalse,Integer.parseInt(grade));
+      listShort=shortAnswerService.makeShortAnswer(Short,Integer.parseInt(grade));
+
+      session.setAttribute("grade",grade);
       session.setAttribute("Choice",Choice);
       session.setAttribute("TrueFalse",TrueFalse);
       session.setAttribute("Short",Short);
@@ -215,10 +226,13 @@ public class TeacherController {
      */
     @RequestMapping(value = "/inserttest")
     public String inserttest(String testname,HttpSession session,Model model){
+        String gra=(String)session.getAttribute("grade");
+        Integer grade=Integer.parseInt(gra);
+        System.out.println("########gra:"+gra+"%%%%%%%%grade:"+grade);
         String Choice=(String)session.getAttribute("Choice");
         String TrueFalse=(String)session.getAttribute("TrueFalse");
         String Short=(String)session.getAttribute("Short");
-        if(testService.inserttest(testname,Choice,TrueFalse,Short)>0)
+        if(testService.inserttest(testname,Choice,TrueFalse,Short,grade)>0)
         {
             model.addAttribute("mg","添加试卷成功");
         }
