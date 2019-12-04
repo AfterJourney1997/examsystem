@@ -26,6 +26,8 @@ public class TeacherController {
     @Resource
     ShortAnswerService shortAnswerService;
     @Resource
+    ArrangeService arrangeService;
+    @Resource
     AnswerService answerService;
     @Resource
     TeacherService ts;
@@ -104,11 +106,15 @@ public class TeacherController {
     @RequestMapping(value = "/testcor")
     public String testcor(Model model){
         List<Answer> corTest=answerService.selCorTest();
+        List<Arrange> corArrName=arrangeService.getArrangeName(corTest);
+        List<Test> corTeName=testService.getTestName(corTest);
         if (corTest.size()<1)
         {
             model.addAttribute("mes","试卷已经批改完，老师辛苦了！");
         }
         model.addAttribute("corTest",corTest);
+        model.addAttribute("corArrName",corArrName);
+        model.addAttribute("corTeName",corTeName);
         return "testcor";
     }
     /**

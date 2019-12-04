@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>省级初中信息技术结业在线考试系统 - 用户登录</title>
+    <title>河南省初级中学结业在线考试系统 - 用户登录</title>
     <link href="${pageContext.request.contextPath}/css/login.css" rel="stylesheet" rev="stylesheet" type="text/css" media="all" />
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jQuery1.7.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.8.2.min.js"></script>
@@ -54,7 +54,7 @@
 <body>
 <div id="tab">
     <ul class="tab_menu">
-        <li class="selected">学生登录</li>
+        <li class="selected">考生登录</li>
         <li>教师登录</li>
         <li>管理员登录</li>
     </ul>

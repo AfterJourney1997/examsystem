@@ -2,12 +2,14 @@ package com.examSystem.service;
 
 import com.examSystem.dao.ArrangeMapper;
 import com.examSystem.dao.TestMapper;
+import com.examSystem.entity.Answer;
 import com.examSystem.entity.School;
 import com.examSystem.entity.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.print.DocFlavor;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -47,5 +49,12 @@ public class TestService {
 
     public List<Test> selectAll() {
         return testMapper.selectAll();
+    }
+    public List<Test> getTestName(List<Answer> answers){
+        List<Test> list=new ArrayList<>();
+        for(Answer answer:answers){
+            list.add(testMapper.selectByPrimaryKey(answer.getTestId()));
+        }
+        return list;
     }
 }

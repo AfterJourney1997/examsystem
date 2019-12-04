@@ -17,7 +17,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">省级初中信息技术结业在线考试系统</a>
+            <a class="navbar-brand" href="#">河南省初级中学结业在线考试系统</a>
         </div>
             <p class="navbar-text navbar-right">
                 <c:if test="${sessionScope.identity == 1}">

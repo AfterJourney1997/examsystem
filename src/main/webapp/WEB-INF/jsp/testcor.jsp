@@ -22,8 +22,8 @@
     <table class="table table-hover table-striped">
         <tr>
             <th>序号</th>
-            <th>考试编号</th>
-            <th>试卷编号</th>
+            <th>考试名称</th>
+            <th>试卷名称</th>
             <th>学生学号</th>
             <th>学生姓名</th>
             <th>操作</th>
@@ -31,8 +31,10 @@
         <c:forEach var="correctTest" items="${corTest}" varStatus="status">
             <tr>
                 <td>${status.count}</td>
-                <td>${correctTest.arrId}</td>
-                <td>${correctTest.testId}</td>
+<%--                <td>${correctTest.arrId}</td>--%>
+                <td>${corArrName.get(status.index).arrName}</td>
+                <td>${corTeName.get(status.index).testName}</td>
+<%--                <td>${correctTest.testId}</td>--%>
                 <td>${correctTest.SAccount}</td>
                 <td>${correctTest.SName}</td>
                 <td>
