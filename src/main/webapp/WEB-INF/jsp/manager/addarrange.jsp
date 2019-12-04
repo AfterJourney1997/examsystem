@@ -10,18 +10,25 @@
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
 
     <link href="${pageContext.request.contextPath}/css/body.css" rel="stylesheet" rev="stylesheet" type="text/css" media="all" />
+
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title>省级初中信息技术结业在线考试系统 - 添加考试</title>
-    <script>
+    <link href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
-        $(function () {
-            $('#datetimepicker2').datetimepicker({
-                format: 'YYYY-MM-DD hh:mm',
-                locale: moment.locale('zh-cn')
-            });
-        });
-    </script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/moment.js/2.24.0/moment-with-locales.js"></script>
+    <script src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.zh-CN.js"></script>
+
+
+
+
+    <title>省级初中信息技术结业在线考试系统 - 添加考试</title>
+
+
+
+
 </head>
 <%@include file="../head.jsp"%>
 <%@include file="../leaf.jsp"%>
@@ -53,17 +60,39 @@
         </div>
         <div class="form-group">
             <label>开始时间</label>
-            <input type="text" class="form-control" name="arrStart" placeholder="开始时间">
+            <div class='input-group date datetimePicker'>
+                <input type="text" class="form-control" name="arrStart" placeholder="开始时间" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
         </div>
 
         <div class="form-group">
             <label>结束时间</label>
-            <input type="text" class="form-control" name="arrStop" placeholder="结束时间">
+            <div class='input-group date datetimePicker'>
+                <input type="text" class="form-control" name="arrStop" placeholder="结束时间" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+
         </div>
 
         <input type="hidden" name="arrStatus" value="0"><br>
         <button type="submit" class="btn btn-default">添加</button>
     </form>
 </div>
+
+<%--日期-时间选择-js--%>
+<script>
+
+    $(".datetimePicker").datetimepicker({
+        format: "yyyy-mm-dd hh:ii:00" //时间格式
+    });
+
+</script>
+
+
 </body>
 </html>
